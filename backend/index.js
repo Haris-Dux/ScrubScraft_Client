@@ -38,7 +38,7 @@ app.use(
   })
 );
 
-app.use("/api", router);
+app.use("", router);
 // const root = path.resolve();
 // app.use(express.static(path.join(root, "dist")));
 
