@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+const imageSchema = {
+  downloadURL: { type: String, required: [true, "Image link required"] },
+  name: { type: String },
+  type: { type: String },
+};
+
 const productsSchema = new mongoose.Schema(
   {
     name: {
@@ -22,21 +28,26 @@ const productsSchema = new mongoose.Schema(
       type: String,
       required: [true, "product_code required"],
     },
-    image: {
-      downloadURL: { type: String, required: [true, "image Link required"] },
-      name: { type: String },
-      type: { type: String },
-    },
     category: {
       type: String,
       required: [true, "category required"],
     },
-    colors: [{ type: String, required: [true, "colors required"] }],
+    colors: [
+      {
+        label: {
+          type: String,
+          required: [true, "color label required"],
+        },
+        value: {
+          type: String,
+          required: [true, "color value required"],
+        },
+      },
+    ],
     sizes: [
       {
         type: String,
         required: [true, "size required"],
-        enum: ["XS", "S", "M", "L", "Xl", "XXL"],
       },
     ],
     fabric_type: [
@@ -48,6 +59,12 @@ const productsSchema = new mongoose.Schema(
     latest: {
       type: Boolean,
       default: false,
+    },
+    images: {
+      primary: imageSchema,
+      image2: imageSchema,
+      image3: imageSchema,
+      image4: imageSchema,
     },
   },
   { timestamps: true }
