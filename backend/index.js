@@ -25,16 +25,16 @@ const store = new MongoDBStoreSession({
 });
 
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave:false,
-  saveUninitialized: false,
-  store:store,
-  cookie:{
-    secure: 'auto',
-    httpOnly:true,
-    maxAge:1000 * 60 * 60 * 24,
-  }
-}));
+    secret: process.env.SESSION_SECRET,
+    resave:false,
+    saveUninitialized: false,
+    store:store,
+    cookie:{
+      secure: 'auto',
+      httpOnly:true,
+      maxAge:1000 * 60 * 60 * 24,
+    }
+  }));
 
 app.use("", router);
 // const root = path.resolve();
