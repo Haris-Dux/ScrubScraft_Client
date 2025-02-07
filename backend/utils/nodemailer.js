@@ -1,8 +1,20 @@
 import nodemailer from "nodemailer";
 
-export async function sendEmail(to, from) {
-  const { email, g_Otp , OrderID , subject, name, phone , address , totalAmount , postal_code} = to;
+export async function sendEmail(to) {
+  const {
+    email,
+    g_Otp,
+    OrderID,
+    subject,
+    name,
+    phone,
+    address,
+    totalAmount,
+    postal_code,
+    message,
+  } = to;
   let output = "";
+  let sendTo ;
 
   if (subject === "Reset Password Code") {
     output = `
@@ -10,9 +22,8 @@ export async function sendEmail(to, from) {
     <p>This link will expire in 15 minutes</p>
     <p> ${g_Otp}</p>
   `;
-  };
-
-  if(subject === "New Order"){
+  sendTo = email;
+  } else if (subject === "New Order") {
     output = `
     <h3>New Order</h3>
     <p> From : ${name}</p>
@@ -22,10 +33,22 @@ export async function sendEmail(to, from) {
     <p> Total Amount : ${totalAmount}</p>
     <p> OrderID : ${OrderID}</p>
   `;
+  sendTo = [email,process.env.EMAIL_AUTH_USER_EMAIL]
+  } else if (subject === "Contact Notification") {
+    output = `
+    <h3>New Order</h3>
+    <p> From : ${name}</p>
+    <p> Phone Number : ${phone}</p>
+    <p> Email : ${email}</p>
+    <p> Message : ${message}</p>
+  `;
+  sendTo = process.env.EMAIL_AUTH_USER_EMAIL;
   }
 
+
+
   let transport = nodemailer.createTransport({
-    host: "smtp.titan.email",
+    host: "smtp.hostinger.com",
     port: 587,
     secure: false,
     auth: {
@@ -39,12 +62,12 @@ export async function sendEmail(to, from) {
 
   let mailoptions = {
     from: process.env.EMAIL_AUTH_USER_EMAIL,
-    to,
+    to: sendTo,
     subject: subject,
     html: output,
   };
 
-  transport.sendMail(mailoptions, (error, info) => {
+  transport.sendMail(mailoptions, (error) => {
     if (error) {
       return false;
     }

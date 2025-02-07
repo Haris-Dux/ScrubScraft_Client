@@ -66,7 +66,7 @@ export const getProducts = async (req, res, next) => {
       query.category = category;
     }
     if (color) {
-      query.colors = { $in: color };
+      query['colors.label'] = {$in:color} ;
     }
     if (size) {
       query.sizes = { $in: size };

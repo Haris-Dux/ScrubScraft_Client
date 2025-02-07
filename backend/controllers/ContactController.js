@@ -1,5 +1,6 @@
 import { SupportModel } from "../models/ContactModel.js";
 import { verifyrequiredparams } from "../utils/Common.js";
+import { sendEmail } from "../utils/nodemailer.js";
 
 export const createSupport = async (req, res) => {
   try {
@@ -13,14 +14,13 @@ export const createSupport = async (req, res) => {
       phoneNumber: phone,
     });
 
-    //TO DO
-    // await sendEmail({
-    //   name,
-    //   message,
-    //   email,
-    //   phoneNumber: phone,
-    //   subject: "Contact Notification",
-    // });
+    await sendEmail({
+      name,
+      message,
+      email,
+      phone,
+      subject: "Contact Notification",
+    });
 
     return res
       .status(201)

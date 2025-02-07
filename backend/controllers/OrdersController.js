@@ -66,7 +66,7 @@ export const createOrder = async (req, res, next) => {
       subject: "New Order",
     });
 
-    return res.status(201).json({ success:true, message: "Order PLaced Succcessfully" });
+    return res.status(201).json({ success:true, message: "Order PLaced Succcessfully" , OrderID: order.OrderID,});
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -156,6 +156,7 @@ export const createOrderAsGuest = async (req, res, next) => {
     });
 
     await sendEmail({
+      email,
       name,
       phone,
       OrderID: order.OrderID,
@@ -165,7 +166,7 @@ export const createOrderAsGuest = async (req, res, next) => {
       subject: "New Order",
     });
 
-    return res.status(201).json({ success:true, message: "Order PLaced Succcessfully" });
+    return res.status(201).json({ success:true, message: "Order PLaced Succcessfully" , OrderID: order.OrderID,});
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -177,7 +178,7 @@ export const trackOrder = async (req, res, next) => {
     if (!OrderID) {
       throw new Error("Order ID is required");
     }
-    const order = await OrdersModel.findById(OrderID);
+    const order = await OrdersModel.findOne({OrderID});
     if (!order) {
       throw new Error("Invalid order tracking information");
     }
