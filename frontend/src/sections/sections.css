@@ -1,0 +1,184 @@
+.allProducts {
+    position: relative;
+    background-image: url("../assets/top-banners/img01.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+    color: white;
+    z-index: 0;
+}
+
+.allProducts::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6b94e094;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.singleProduct {
+    position: relative;
+    background-image: url("../assets/top-banners/img02.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+    color: white;
+    z-index: 0;
+}
+
+.singleProduct::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6994e494;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.cartBanner {
+    position: relative;
+    background-image: url("../assets/top-banners/img05.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+    color: white;
+    z-index: 0;
+}
+
+.cartBanner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6994e494;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.checkoutBanner {
+    position: relative;
+    background-image: url("../assets/top-banners/img04.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+    color: white;
+    z-index: 0;
+}
+
+.checkoutBanner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6994e494;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.aboutBanner {
+    position: relative;
+    background-image: url("../assets/top-banners/img03.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+    color: white;
+    z-index: 0;
+}
+
+.aboutBanner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6994e494;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.contact {
+    position: relative;
+    background-image: url("../assets/background/contactbg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+    color: white;
+    z-index: 0;
+}
+
+.contact::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #6672b894;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.aboutSectionbg {
+    background-image: url("https://cdn.shopify.com/s/files/1/0649/1399/8024/files/About.png?v=1717691123");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.product_banner {
+    position: relative;
+    background-image: url("https://cdn.shopify.com/s/files/1/0649/1399/8024/files/Shop_Banner.webp?v=1718298006");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+}
+
+.bundle_banner {
+    position: relative;
+    background-image: url("https://cdn.shopify.com/s/files/1/0852/5099/8550/files/Bundles_Banner.webp?v=1721837154");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: fill;
+}
+
+.magnifier {
+    position: absolute;
+    pointer-events: none;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.contactSectionbg {
+    background-image: url("https://cdn.shopify.com/s/files/1/0649/1399/8024/files/Contact.png?v=1717691261");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.orderSectionbg {
+    background-image: url("https://cdn.shopify.com/s/files/1/0649/1399/8024/files/order.png?v=1717691411");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

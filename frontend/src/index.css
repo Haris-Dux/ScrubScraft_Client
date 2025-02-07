@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .custom-bounce {
+        animation: bounce 1.5s infinite;
+    }
+}

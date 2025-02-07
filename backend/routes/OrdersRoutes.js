@@ -12,7 +12,7 @@ const orderRouter = express.Router();
 
 orderRouter.post("/orders/createOrder", verifyUser, createOrder);
 orderRouter.post("/orders/createOrderAsGuest", createOrderAsGuest);
-orderRouter.post("/orders/updateOrder",verifyUser, updateOrder);
+orderRouter.post("/orders/updateOrder", updateOrder);
 orderRouter.post("/orders/getAllOrdersForUser",verifyUser, getAllOrdersForUser);
 orderRouter.post("/orders/trackOrder", trackOrder);
 
