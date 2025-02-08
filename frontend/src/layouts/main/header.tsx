@@ -85,7 +85,7 @@ export default function Header() {
             onClick={() => window.scroll(0, 0)}
             className="flex items-center space-x-2"
           >
-            <img src="/src/assets/logo/logo.png" alt="logo" className="h-6" />
+            <img src="/images/logo.png" alt="logo" className="h-6" />
             <h1
               className={`text-xl sm:text-2xl font-bold ${
                 state
