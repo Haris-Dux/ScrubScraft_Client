@@ -3,6 +3,7 @@ import "./App.css";
 import { useAppDispatch } from "./app/hooks";
 import { useEffect } from "react";
 import { userSessionAsync } from "./features/authSlice";
+import FacebookPixel from "./utils/FacebookPixel";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -13,6 +14,7 @@ function App() {
 
   return (
     <>
+      <FacebookPixel />
       <Routelist />
     </>
   );

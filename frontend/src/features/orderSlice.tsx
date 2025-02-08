@@ -6,6 +6,7 @@ import { RequestData } from "../sections/checkout/checkout-details";
 import { data } from "../sections/orders/orders-view";
 
 // API URLs
+const pricingDetailsUrl = `https://admin.scrubscraft.shop/pricing/getPricing`;
 const createOrderUrl = `${Base_url}/orders/createOrder`;
 const createOrderForGuestUrl = `${Base_url}/orders/createOrderAsGuest`;
 const getAllOrderUrl = `${Base_url}/orders/getAllOrdersForUser`;
@@ -13,6 +14,17 @@ const updateOrderUrl = `${Base_url}/orders/updateOrder`;
 const trackOrderUrl = `${Base_url}/orders/trackOrder`;
 
 // CREATE REVIEWS ASYNC THUNK
+export const pricingDetailsAsync = createAsyncThunk(
+  "Details/pricing",
+  async () => {
+    try {
+      const response = await axios.get(pricingDetailsUrl);
+      return response.data;
+    } catch (error: any) {
+      toast.error(error.response.data.error);
+    }
+  }
+);
 export const createOrderAsync = createAsyncThunk(
   "reviews/create",
   async (formData: RequestData) => {
@@ -111,26 +123,43 @@ interface ReviewsState {
   loading: boolean;
   createOrderLoading: boolean;
   orderTrackingLoading: boolean;
+  pricingLoading: boolean;
   updateLoading: boolean;
   allOrders: Orders[];
   trackOrder: Orders[];
+  pricing: any;
 }
 
 const initialState: ReviewsState = {
   loading: false,
   orderTrackingLoading: false,
   createOrderLoading: false,
+  pricingLoading: false,
   updateLoading: false,
   allOrders: [],
   trackOrder: [],
+  pricing: [],
 };
 
 const orderSlice = createSlice({
   name: "orderSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    clearTrackOrder: (state) => {
+      state.trackOrder = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
+
+      // PRICING DETIALS
+      .addCase(pricingDetailsAsync.pending, (state) => {
+        state.pricingLoading = true;
+      })
+      .addCase(pricingDetailsAsync.fulfilled, (state, action) => {
+        state.pricingLoading = false;
+        state.pricing = action.payload;
+      })
 
       // CREATE ORDER
       .addCase(createOrderAsync.pending, (state) => {
@@ -176,4 +205,5 @@ const orderSlice = createSlice({
   },
 });
 
+export const { clearTrackOrder } = orderSlice.actions;
 export default orderSlice.reducer;

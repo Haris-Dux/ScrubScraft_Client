@@ -20,6 +20,8 @@ const CheckoutDetails: React.FC = () => {
   // const navigate = useNavigate();
 
   const { cart, totalPrice } = useAppSelector((state) => state.actions);
+  const { pricing } = useAppSelector((state) => state.orders);
+  let deliveryCharges = pricing[0]?.amount;
 
   // useEffect(() => {
   //   if (cart?.length === 0) {
@@ -37,7 +39,7 @@ const CheckoutDetails: React.FC = () => {
               <DetailsForm />
 
               {/* Product List */}
-              <div className="bg-white px-5 py-10 md:px-8 shadow-md border border-gray-200 rounded-lg">
+              <div className="bg-white px-5 py-8 md:px-8 shadow-md border border-gray-200 rounded-xl">
                 <div className="flow-root">
                   <ul className="-my-7 divide-y divide-gray-200">
                     {cart.map((product: any) => (
@@ -71,25 +73,45 @@ const CheckoutDetails: React.FC = () => {
                         </div>
                         <div className="ml-auto flex flex-col items-end justify-between">
                           <p className="text-right text-sm font-bold text-gray-900">
-                            {/* Rs. {product?.price * product.quantity} */}
-                            {/* {product?.sale_price !== 0 ||
-                            product?.sale_price > 0 ? (
-                              <p className="">Rs. {product?.sale_price}</p>
-                            ) : (
-                              <p className="">Rs. {product?.price}</p>
-                            )} */}
-                            {(product.sale_price || product.price) *
-                              product.quantity}
+                            {(product?.sale_price !== 0
+                              ? product?.sale_price
+                              : product?.price) * product?.quantity}
                           </p>
 
-                          <p className="mt-3 text-sm font-normal text-gray-500">
-                            {/* {product?.name_engraving && "+200"} */}
-                            {product?.name_engraving &&
-                              `+${200 * product.quantity}`}
-                          </p>
-                          <p className="mt-3 text-xs font-normal text-gray-500">
-                            {product?.name_engraving && "(Name engraving)"}
-                          </p>
+                          {product?.custom_size && (
+                            <p className="mt-1 text-sm font-normal text-gray-500">
+                              <span>
+                                {product?.custom_size &&
+                                  `+${
+                                    product?.custom_size_charges *
+                                    product?.quantity
+                                  }`}
+                              </span>{" "}
+                            </p>
+                          )}
+                          {product?.name_engraving && (
+                            <p className="mt-1 text-sm font-normal text-gray-500">
+                              <span>
+                                {product?.name_engraving &&
+                                  `+${
+                                    product?.name_engraving_charges *
+                                    product?.quantity
+                                  }`}
+                              </span>{" "}
+                            </p>
+                          )}
+
+                          {product?.cap && (
+                            <p className="mt-1 text-sm font-normal text-gray-500">
+                              <span>
+                                {product?.cap &&
+                                  `+${
+                                    product?.cap_charges * product?.quantity
+                                  }`}
+                              </span>{" "}
+                            </p>
+                          )}
+
                           <button
                             type="button"
                             className="-m-2 inline-flex rounded p-2 text-gray-400 transition-all duration-200 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
@@ -110,13 +132,16 @@ const CheckoutDetails: React.FC = () => {
                   <li className="flex items-center justify-between text-gray-600">
                     <p className="text-md font-medium">Delivery Charges</p>
                     <p className="text-md font-medium">
-                      Rs. {totalPrice < 5000 ? 280 : 0}
+                      Rs. {totalPrice < 5000 ? deliveryCharges : 0}
                     </p>
                   </li>
                   <li className="flex items-center justify-between border-t border-gray-500 pt-2 text-gray-900">
                     <p className="text-md font-medium ">Total</p>
                     <p className="text-md font-bold ">
-                      Rs. {totalPrice < 5000 ? totalPrice + 280 : totalPrice}
+                      Rs.{" "}
+                      {totalPrice < 5000
+                        ? totalPrice + deliveryCharges
+                        : totalPrice}
                     </p>
                   </li>
                 </ul>

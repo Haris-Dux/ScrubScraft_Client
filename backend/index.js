@@ -12,7 +12,7 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin:['https://scrubscraft.shop']
+    origin:['https://scrubscraft.shop','http://localhost:5173']
   })
 );
 

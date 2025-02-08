@@ -96,8 +96,8 @@ const ContactView: React.FC = () => {
                     </a>
                   </p>
                   <p className="flex items-start">
-                    <FaAddressBook className="text-white size-9 p-2" />
-                    <span className="mt-1 mx-3 text-white text-wrap">
+                    <FaAddressBook className="text-white size-10 sm:size-9 p-2" />
+                    <span className="mt-1 mx-3 text-white text-start">
                       Awan Market, Main Ferozepur Road, Lahore, Pakistan
                     </span>
                   </p>

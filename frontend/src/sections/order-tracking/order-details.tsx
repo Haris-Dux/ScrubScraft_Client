@@ -28,8 +28,13 @@ interface Product {
   uniqueId: string;
   images: Images;
   averageRating: number;
-  sale_price: number | undefined;
   name_engraving: any;
+  name_engraving_charges: any;
+  cap: any;
+  cap_charges: any;
+  custom_size: any;
+  custom_size_charges: any;
+  sale_price: number | undefined;
   price: number;
   stock: number;
   quantity: number;
@@ -200,25 +205,34 @@ const OrdersDetails = ({ trackOrder }: { trackOrder: any }) => {
 
                             <div className="ml-auto flex flex-col items-end justify-between">
                               <p className="text-right text-sm font-bold text-gray-900">
-                                {/* {(product?.sale_price &&
-                                        product?.sale_price !== 0) ||
-                                      (product?.sale_price ?? 0) > 0 ? (
-                                        <p className="">
-                                          Rs. {product?.sale_price}
-                                        </p>
-                                      ) : (
-                                        <p className="">Rs. {product?.price}</p>
-                                      )} */}
-                                {(product.sale_price || product.price) *
-                                  product.quantity}
-                              </p>
-                              <p className="mt-3 text-sm font-normal text-gray-500">
-                                {/* {product?.name_engraving && "+200"} */}
-                                {product?.name_engraving &&
-                                  `+${200 * product.quantity}`}
-                              </p>
-                              <p className="mt-3 text-xs font-normal text-gray-500">
-                                {product?.name_engraving && "(Name engraving)"}
+                                {(() => {
+                                  let basePrice =
+                                    product?.sale_price &&
+                                    product?.sale_price !== 0
+                                      ? product.sale_price
+                                      : product.price;
+
+                                  let extraCharges = 0;
+
+                                  if (product?.name_engraving) {
+                                    extraCharges +=
+                                      product.name_engraving_charges || 0;
+                                  }
+
+                                  if (product?.cap) {
+                                    extraCharges += product.cap_charges || 0;
+                                  }
+
+                                  if (product?.custom_size) {
+                                    extraCharges +=
+                                      product.custom_size_charges || 0;
+                                  }
+
+                                  return (
+                                    (basePrice + extraCharges) *
+                                    product?.quantity
+                                  );
+                                })()}
                               </p>
                             </div>
                           </li>

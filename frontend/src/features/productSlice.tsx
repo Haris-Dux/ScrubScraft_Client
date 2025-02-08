@@ -10,14 +10,13 @@ const getAllFabricsUrl = `https://admin.scrubscraft.shop/productDetails/getAllFa
 const getAllColorsUrl = `https://admin.scrubscraft.shop/productDetails/getAllColors`;
 const getAllCategoriesUrl = `https://admin.scrubscraft.shop/productDetails/getAllCategories`;
 
-
 // GET ALL PRODUCT ASYNC THUNK
 export const getAllProductsAsync = createAsyncThunk(
   "products/fetchAll",
   async (filters: ProductState["filters"]) => {
     try {
       const filteredParams = Object.fromEntries(
-        Object.entries(filters).filter(([_, value]) => value)
+        Object.entries(filters).filter(([_, value]) => value !== undefined && value !== "")
       );
       const queryString = new URLSearchParams(filteredParams as any).toString();
       const response = await axios.post(`${getAllProductUrl}?${queryString}`);
@@ -27,26 +26,6 @@ export const getAllProductsAsync = createAsyncThunk(
     }
   }
 );
-
-// export const getAllProductsAsync = createAsyncThunk(
-//   "Shop/getProduts",
-//   async (data) => {
-//     const query = buildQueryParams({
-//       name: data.name,
-//       category: data.filtersData.category,
-//       color: data.filtersData.color,
-//       size: data.filtersData.size,
-//       fabric_type: data.filtersData.fabric_type,
-//       page:data.page
-//     });
-//     try {
-//       const response = await axios.post(${getProductsUrl}?${query});
-//       return response.data;
-//     } catch (error) {
-
-// throw new Error(error)    }
-//   }
-// );
 
 // GET ALL PRODUCT ASYNC THUNK
 export const getLatestProductsAsync = createAsyncThunk(

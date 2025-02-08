@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FilterDropdown } from "../../components/dropdown/filter-dropdown";
 import { FiFilter } from "react-icons/fi";
 import { useAppSelector } from "../../app/hooks";
+import { useNavigate } from "react-router-dom";
 
 const ProductFilters: React.FC<{
   onFilterChange: (type: string, value: string) => void;
@@ -12,6 +13,7 @@ const ProductFilters: React.FC<{
   //   const [selectedColor, setSelectedColor] = useState<string>("");
   //   const [selectedSize, setSelectedSize] = useState<string>("");
 
+  const navigate = useNavigate();
   const [isFiltersVisible, setIsFiltersVisible] = useState(false);
 
   // const sortOptions = ["Newest", "Price: Low to High", "Price: High to Low"];
@@ -79,6 +81,19 @@ const ProductFilters: React.FC<{
             options={sizeOptions}
             onSelect={(value) => onFilterChange("size", value)}
           /> */}
+
+          <button
+            type="button"
+            onClick={() => {
+              onFilterChange("category", "");
+              onFilterChange("fabric_type", "");
+              onFilterChange("color", "");
+              navigate("/products", { replace: true });
+            }}
+            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+          >
+            Reset Filters
+          </button>
         </div>
       </div>
     </div>

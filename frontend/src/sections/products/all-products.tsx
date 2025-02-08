@@ -10,9 +10,10 @@ import {
   setFilters,
 } from "../../features/productSlice";
 import ProductCard from "../../components/cards/product-card";
-import NoProducts from "./no-products";
 import "../sections.css";
 import ProductFilters from "./filters";
+import ProductsLoading from "./no-products";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const AllProducts: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -55,6 +56,10 @@ const AllProducts: React.FC = () => {
   // }, [dispatch, page, category]);
 
   useEffect(() => {
+    dispatch(setFilters({ ...filters, page })); // Ensure page is updated in filters
+  }, [page]);
+
+  useEffect(() => {
     dispatch(getAllProductsAsync(filters));
   }, [dispatch, filters]);
 
@@ -62,8 +67,12 @@ const AllProducts: React.FC = () => {
     dispatch(getLatestProductsAsync());
   }, []);
 
+  // const handleFilterChange = (filterType: string, value: string) => {
+  //   dispatch(setFilters({ [filterType]: value }));
+  // };
+
   const handleFilterChange = (filterType: string, value: string) => {
-    dispatch(setFilters({ [filterType]: value }));
+    dispatch(setFilters({ ...filters, [filterType]: value, page: 1 }));
   };
 
   const ToTop = () => {
@@ -101,9 +110,13 @@ const AllProducts: React.FC = () => {
         <div className="mx-auto max-w-5xl xl:max-w-6xl xxl:max-w-7xl px-4 py-3 sm:px-6 sm:py-0 lg:px-5 xl:px-0">
           <div className="mt-4 w-full">
             <div className="products">
-              <ul className="grid gap-3 sm:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+              <div className="grid gap-3 sm:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
                 {Productloading ? (
-                  <NoProducts />
+                  <ProductsLoading />
+                ) : products?.productData?.length === 0 ? (
+                  <div className="col-span-4 w-full text-center">
+                    No products available
+                  </div>
                 ) : (
                   <>
                     {products?.productData?.map((data: any, index: number) => (
@@ -111,111 +124,63 @@ const AllProducts: React.FC = () => {
                     ))}
                   </>
                 )}
-              </ul>
-
-              <div className="flex justify-center">
-                <nav aria-label="Page navigation example">
-                  <ul className="flex items-center -space-x-px h-8 py-10 text-sm">
-                    <li>
-                      {products?.page > 1 ? (
-                        <Link
-                          onClick={ToTop}
-                          to={`/products?category=${category}&page=${page - 1}`}
-                          className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
-                        >
-                          <span className="sr-only">Previous</span>
-                          <svg
-                            className="w-2.5 h-2.5 rtl:rotate-180"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 6 10"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 1 1 5l4 4"
-                            />
-                          </svg>
-                        </Link>
-                      ) : (
-                        <button
-                          className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg cursor-not-allowed"
-                          disabled
-                        >
-                          <span className="sr-only">Previous</span>
-                          <svg
-                            className="w-2.5 h-2.5 rtl:rotate-180"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 6 10"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 1 1 5l4 4"
-                            />
-                          </svg>
-                        </button>
-                      )}
-                    </li>
-                    {renderPaginationLinks()}
-                    <li>
-                      {products?.totalPages !== page ? (
-                        <Link
-                          onClick={ToTop}
-                          to={`/products?category=${category}&page=${page + 1}`}
-                          className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
-                        >
-                          <span className="sr-only">Next</span>
-                          <svg
-                            className="w-2.5 h-2.5 rtl:rotate-180"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 6 10"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="m1 9 4-4-4-4"
-                            />
-                          </svg>
-                        </Link>
-                      ) : (
-                        <button
-                          className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg cursor-not-allowed"
-                          disabled
-                        >
-                          <span className="sr-only">Next</span>
-                          <svg
-                            className="w-2.5 h-2.5 rtl:rotate-180"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 6 10"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="m1 9 4-4-4-4"
-                            />
-                          </svg>
-                        </button>
-                      )}
-                    </li>
-                  </ul>
-                </nav>
               </div>
+
+              {products?.productData?.length > 0 && (
+                <div className="flex justify-center">
+                  <nav aria-label="Page navigation example">
+                    <ul className="flex items-center -space-x-px h-8 py-10 text-sm">
+                      <li>
+                        {products?.page > 1 ? (
+                          <Link
+                            onClick={ToTop}
+                            to={`/products?category=${category}&page=${
+                              page - 1
+                            }`}
+                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-800 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
+                          >
+                            <span className="sr-only">Previous</span>
+                            <IoIosArrowBack size={16} />
+                          </Link>
+                        ) : (
+                          <button
+                            type="button"
+                            className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-800 bg-white border border-e-0 border-gray-300 rounded-s-lg cursor-not-allowed"
+                            disabled
+                          >
+                            <span className="sr-only">Previous</span>
+                            <IoIosArrowBack size={16} />
+                          </button>
+                        )}
+                      </li>
+                      {renderPaginationLinks()}
+                      <li>
+                        {products?.totalPages !== page ? (
+                          <Link
+                            onClick={ToTop}
+                            to={`/products?category=${category}&page=${
+                              page + 1
+                            }`}
+                            className="flex items-center justify-center px-3 h-8 leading-tight text-gray-800 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
+                          >
+                            <span className="sr-only">Next</span>
+                            <IoIosArrowForward size={16} />
+                          </Link>
+                        ) : (
+                          <button
+                            type="button"
+                            className="flex items-center justify-center px-3 h-8 leading-tight text-gray-800 bg-white border border-gray-300 rounded-e-lg cursor-not-allowed"
+                            disabled
+                          >
+                            <span className="sr-only">Next</span>
+                            <IoIosArrowForward size={16} />
+                          </button>
+                        )}
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              )}
             </div>
           </div>
         </div>

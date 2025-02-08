@@ -17,6 +17,8 @@ import {
 import NameEngravingForm from "./components/name-engraving";
 import LoadingScreen from "../../components/loading-screen/loading-screen";
 import CustomSizeModal from "./components/custom-size-modal";
+import { pricingDetailsAsync } from "../../features/orderSlice";
+import CapForm from "./components/cap";
 // import CapForm from "./components/cap";
 
 export interface ReviewFormData {
@@ -58,15 +60,12 @@ export const ProductPage: React.FC = () => {
 
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedFabric, setSelectedFabric] = useState<string | null>(null);
+  const [cap, setCap] = useState(false);
+
   const [nameEngraving, setNameEngraving] = useState<{
     name: string;
     position: "left" | "right";
   } | null>(null);
-
-  // const [cap, setCap] = useState<{
-  //   name: string;
-  //   position: "left" | "right";
-  // } | null>(null);
 
   const handleSizeClick = (size: string) => {
     setSelectedSize((prevSize) => (prevSize === size ? null : size));
@@ -83,6 +82,13 @@ export const ProductPage: React.FC = () => {
       dispatch(getallreviewsAsync(id));
     }
   }, [id]);
+
+  useEffect(() => {
+    dispatch(pricingDetailsAsync());
+  }, []);
+
+  const { pricing } = useAppSelector((state) => state.orders);
+  // console.log("pricing", pricing);
 
   const user = useAppSelector((state) => state.auth.user);
   const userID = user?.user?.id;
@@ -146,8 +152,11 @@ export const ProductPage: React.FC = () => {
         color: selectedColor,
         fabric_type: selectedFabric,
         name_engraving: nameEngraving ? nameEngraving : false,
-        // cap: cap ? cap : false,
-        custom_size: customSize,
+        name_engraving_charges: pricing[1]?.amount,
+        cap_charges: pricing[2]?.amount,
+        custom_size_charges: pricing[3]?.amount,
+        cap: cap ? cap : false,
+        custom_size: customSize ? customSize : false,
         uniqueId,
         quantity: 1,
         _id: singleProduct.id,
@@ -299,6 +308,7 @@ export const ProductPage: React.FC = () => {
                   </div>
                 </div>
 
+                {/* PRODUCT CODE AND CATEGORY */}
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <span className="font-medium text-gray-900">
@@ -325,14 +335,18 @@ export const ProductPage: React.FC = () => {
                         key={color._id}
                         type="button"
                         title="button"
-                        className={`w-9 h-9 border-2 rounded-full shrink-0 ${
+                        className={`w-9 h-9 border-2 rounded-full shrink-0 flex items-center justify-center ${
                           selectedColor === color.label
                             ? "border-gray-800"
                             : "border-white hover:border-gray-800"
                         }`}
-                        style={{ backgroundColor: color.value }}
                         onClick={() => handleColorClick(color)}
-                      ></button>
+                      >
+                        <div
+                          className="w-7 h-7 rounded-full"
+                          style={{ backgroundColor: color.value }}
+                        ></div>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -409,9 +423,9 @@ export const ProductPage: React.FC = () => {
                 </div>
 
                 <NameEngravingForm setNameEngraving={setNameEngraving} />
-                
-                {/* <CapForm setCap={setCap} /> */}
+                <CapForm setCap={setCap} />
 
+                {/* ADD TO CART */}
                 <div className="flex gap-4">
                   <button
                     title="button"
@@ -424,6 +438,7 @@ export const ProductPage: React.FC = () => {
                   </button>
                 </div>
 
+                {/* DESCRIPTION */}
                 <p className="text-gray-600 capitalize">
                   {singleProduct?.description}
                 </p>

@@ -38,12 +38,12 @@ const Footer = () => {
             <div className="sm:col-span-2">
               <h1 className="max-w-lg flex items-center text-xl font-semibold tracking-tight text-black xl:text-2xl">
                 <img
-                  className="w-auto h-16"
-                  src={"/images/logo.png"}
+                  className="w-auto h-24"
+                  src={"/src/assets/logo/newLogo.png"}
                   alt="logo"
                 />
               </h1>
-              <p className="max-w-sm text-[1rem] mt-5">
+              <p className="max-w-sm text-[1rem] mt-1">
                 Experience premium medical uniforms that combine style, comfort,
                 and functionality.
               </p>

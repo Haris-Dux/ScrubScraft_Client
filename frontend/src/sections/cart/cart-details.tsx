@@ -93,16 +93,17 @@ const CartDetails: React.FC = () => {
                               <div>
                                 <p className="text-sm text-gray-500">Fabric</p>
                                 <p className="font-medium text-[14px] sm:text-[15px] capitalize">
-                                  {product.fabric_type}
+                                  {product?.fabric_type}
                                 </p>
                               </div>
                               <div>
                                 <p className="text-sm text-gray-500">Size</p>
                                 {/* <p className="font-medium">{product?.sizes}</p> */}
                                 <p className="font-medium text-[14px] sm:text-[15px]">
-                                  {!product.sizes && product?.custom_size
+                                  {!product?.sizes && product?.custom_size
                                     ? "Custom size selected"
-                                    : product.sizes}
+                                    : product?.sizes}
+                                    <span className="text-gray-500 text-xs ml-1">{product?.custom_size && `(Rs.${product?.custom_size_charges})`}</span>
                                 </p>
                               </div>
                               <div>
@@ -116,22 +117,33 @@ const CartDetails: React.FC = () => {
                                   Product Code
                                 </p>
                                 <p className="font-medium text-[14px] sm:text-[15px]">
-                                  {product.product_code}
+                                  {product?.product_code}
                                 </p>
                               </div>
-                            </div>
 
-                            {product.name_engraving && (
-                              <div className="mt-4">
-                                <p className="text-sm text-gray-500">
-                                  Name Engraving
-                                </p>
-                                <p className="font-medium">
-                                  {product.name_engraving.name} (
-                                  {product.name_engraving.position} side)
+                              {product?.cap && (
+                                <div>
+                                <p className="text-sm text-gray-500">Cap</p>
+                                <p className="font-medium text-[14px] sm:text-[15px]">
+                                  {product?.cap && `Added`}  
+                                  <span className="text-gray-500 text-xs ml-1">{product?.cap && `(Rs.${product?.cap_charges})`}</span>
                                 </p>
                               </div>
-                            )}
+                              )}
+
+                              {product?.name_engraving && (
+                                <div className="">
+                                  <p className="text-sm text-gray-500">
+                                    Name Engraving
+                                  </p>
+                                  <p className="font-medium">
+                                    {product?.name_engraving.name} (
+                                    {product?.name_engraving.position} side) 
+                                  <span className="text-gray-500 text-xs ml-1">{product?.name_engraving && `(Rs.${product?.name_engraving_charges})`}</span>
+                                  </p>
+                                </div>
+                              )}
+                            </div>
 
                             <div className="mt-4 flex items-center justify-between">
                               <div className="flex items-center border rounded-md">

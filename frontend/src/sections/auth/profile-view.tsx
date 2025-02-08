@@ -79,7 +79,7 @@ const ProfileView = () => {
 
   return (
     <>
-      <section className="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white py-14 sm:py-0 px-3 sm:px-8 lg:px-10 min-h-[100vh] flex items-center justify-center">
+      <section className="w-full bg-gradient-to-r from-blue-700 to-blue-500 text-white py-14 sm:py-0 px-3 sm:px-8 lg:px-10 min-h-[100vh] flex items-center justify-center">
         <div className="w-full">
           <div className="mt-12 content py-4 px-3 sm:p-8 max-w-3xl mx-auto bg-[#f5f5f5] border border-gray-200 rounded-xl">
             <div className="mb-4 sm:mb-8">

@@ -3,10 +3,10 @@ export const navigation = [
   { title: "Shop", path: "/products" },
   { title: "About", path: "/about" },
   { title: "Contact", path: "/contact" },
-  { title: "Order Track", path: "/order-track" },
 ];
 
 export const mobileAuthRoute = [
   { title: "Profile", path: "/profile" },
-  { title: "Orders", path: "/orders" },
+  { title: "My Orders", path: "/orders" },
+  { title: "Order Track", path: "/order-track" },
 ];

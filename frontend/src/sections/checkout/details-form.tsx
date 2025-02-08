@@ -20,6 +20,8 @@ export default function DetailsForm() {
 
   const { cart, totalPrice } = useAppSelector((state) => state.actions);
   const { createOrderLoading } = useAppSelector((state) => state.orders);
+  const { pricing } = useAppSelector((state) => state.orders);
+  let deliveryCharges = pricing[0]?.amount;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -71,7 +73,7 @@ export default function DetailsForm() {
     if (!validateForm()) return;
 
     let totalAmount = totalPrice;
-    const deliveryCharges = 280;
+    // const deliveryCharges = 280;
 
     if (totalAmount < 5000) {
       totalAmount += deliveryCharges;

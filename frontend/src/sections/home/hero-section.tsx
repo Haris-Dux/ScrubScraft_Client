@@ -1,6 +1,6 @@
 import { ArrowRight, Shield } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import img from '../../assets/top-banners/img05.jpg'
+import img from "../../assets/top-banners/img05.jpg";
 
 export default function HeroSection() {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-blue-600 opacity-90"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-700 to-blue-500 opacity-90"></div>
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:20px_20px]"></div>
       </div>

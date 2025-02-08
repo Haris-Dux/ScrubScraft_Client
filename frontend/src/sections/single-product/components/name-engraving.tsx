@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAppSelector } from "../../../app/hooks";
 
 type NameEngravingFormProps = {
   setNameEngraving: (
@@ -16,6 +17,8 @@ export default function NameEngravingForm({
   const [engravingText, setEngravingText] = useState("");
   const [engravingPosition, setEngravingPosition] =
     useState<EngravingPosition>("left");
+
+  const { pricing } = useAppSelector((state) => state.orders);
 
   const handleOptionChange = (value: EngravingOption) => {
     setEngravingOption(value);
@@ -60,7 +63,7 @@ export default function NameEngravingForm({
               className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
             />
             <label htmlFor="engrave-yes" className="text-gray-900">
-              Yes (NO EXCHANGE) (+ Rs.200 PKR)
+              Yes (NO EXCHANGE) (+ Rs.{pricing[1]?.amount} PKR)
             </label>
           </div>
 
