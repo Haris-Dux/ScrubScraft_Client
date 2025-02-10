@@ -24,13 +24,13 @@ export default function ProductCard({ data }: { data: any }) {
           />
         </div>
         <div className="py-3 px-0 relative">
-          <div className="hidden sm:flex flex-wrap justify-center gap-2 w-full absolute px-4 pt-3 z-10 transition-all duration-500 left-0 right-0 group-hover:bottom-20 lg:bottom-5 lg:opacity-0 lg:bg-white lg:group-hover:opacity-100 max-lg:bottom-20 max-lg:py-3 max-lg:bg-white/60">
+          <div className="hidden sm:flex flex-wrap justify-center gap-2 w-full absolute px-4 pt-3 z-10 transition-all duration-500 left-0 right-0 group-hover:bottom-20 lg:bottom-5 lg:opacity-0 lg:bg-blue-300 lg:group-hover:opacity-100 max-lg:bottom-20 max-lg:py-3 max-lg:bg-blue-300/60">
             <button
               type="button"
               title="Add to cart"
               className="bg-transparent outline-none border-none"
             >
-              <CartIcon className="text-blue-300" />
+              <CartIcon />
             </button>
           </div>
 
