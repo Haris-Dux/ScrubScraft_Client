@@ -23,7 +23,6 @@ const LoginView = () => {
   });
 
   const { loginLoading } = useAppSelector((state) => state.auth);
-  console.log("loginLoading", loginLoading);
 
   useEffect(() => {
     if (user?.login) {

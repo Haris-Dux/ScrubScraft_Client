@@ -57,20 +57,8 @@ export default function DetailsForm() {
     });
   };
 
-  const validateForm = (): boolean => {
-    for (const key in formData) {
-      if (formData[key as keyof typeof formData] === "") {
-        toast.error("Please fill in all fields.");
-        return false;
-      }
-    }
-    return true;
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!validateForm()) return;
 
     let totalAmount = totalPrice;
     // const deliveryCharges = 280;
@@ -192,7 +180,6 @@ export default function DetailsForm() {
                 value={formData.area}
                 onChange={handleInputChange}
                 className="mb-3 px-4 py-3 bg-white text-[#333] w-full text-md border rounded-md border-gray-400 focus:border-gray-500 outline-none placeholder:text-gray-400 transition-shadow duration-200 focus:shadow-md"
-                required
               />
 
               <textarea
@@ -212,7 +199,6 @@ export default function DetailsForm() {
                 value={formData.delivery_instruction}
                 onChange={handleInputChange}
                 className="px-4 py-3 bg-white text-[#333] w-full text-md border rounded-md border-gray-400 focus:border-gray-500 outline-none placeholder:text-gray-400 transition-shadow duration-200 focus:shadow-md"
-                required
               ></textarea>
 
               <div className="buttons mt-2">

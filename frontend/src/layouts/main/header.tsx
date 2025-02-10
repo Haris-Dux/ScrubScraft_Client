@@ -95,7 +95,7 @@ export default function Header() {
               className="h-10"
             />
             <h1
-              className={`text-xl sm:text-[1.35rem] font-bold ${
+              className={`text-xl sm:text-[1.25rem] font-bold ${
                 state
                   ? "text-blue-600"
                   : isOnHomePage
@@ -201,6 +201,16 @@ export default function Header() {
                 </li>
               );
             })}
+
+            <li className={`flex text-[1rem]`}>
+              <Link
+                to="/order-track"
+                onClick={handleCloseNavbar}
+                className="block tracking-wide"
+              >
+                Order Track
+              </Link>
+            </li>
 
             {/* LOGOUT BUTTON MOBILE */}
             <li
@@ -317,7 +327,7 @@ export default function Header() {
                                : isOnHomePage
                                ? scrolled
                                  ? "bg-blue-500 text-gray-100"
-                                 : "bg-blue-500 text-gray-100"
+                                 : "bg-gray-100 text-blue-800"
                                : "bg-blue-500 text-gray-100"
                            }`}
                       >
@@ -390,7 +400,7 @@ export default function Header() {
                           : isOnHomePage
                           ? scrolled
                             ? "text-gray-700"
-                            : "text-gray-700"
+                            : "text-gray-50"
                           : "text-gray-700"
                       } `}
                     />

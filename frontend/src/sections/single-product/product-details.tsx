@@ -389,9 +389,9 @@ export const ProductPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={openModal}
-                        className="text-xs font-semibold text-primary underline underline-offset-2 cursor-pointer"
+                        className="text-sm font-semibold text-primary underline underline-offset-2 cursor-pointer"
                       >
-                        Custom Size {customSize && "Added"}
+                        Do you want Custom Size? {customSize && "Added"}
                       </button>
                     </div>
                     <Link

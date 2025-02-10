@@ -8,5 +8,5 @@ export const navigation = [
 export const mobileAuthRoute = [
   { title: "Profile", path: "/profile" },
   { title: "My Orders", path: "/orders" },
-  { title: "Order Track", path: "/order-track" },
+  // { title: "Order Track", path: "/order-track" },
 ];

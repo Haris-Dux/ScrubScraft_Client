@@ -2,7 +2,7 @@
 export default function ProductsLoading() {
   return (
     <>
-      {[0, 1, 2, 3, 4, 5, 6, 7].map((_data, index) => (
+      {[0, 1, 2, 3, 4, 5, 6].map((_data, index) => (
         <div key={index}>
           <div className="group mb-5 relative rounded-lg w-full bg-white border border-gray-300 cursor-pointer animate-pulse">
             <div className="bg-gray-300 h-56 w-full"></div>

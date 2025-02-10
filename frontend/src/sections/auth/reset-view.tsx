@@ -124,13 +124,6 @@ const ResetView = () => {
                   </div>
                 </div>
 
-                {/* <button
-                  type="submit"
-                  className="w-full py-2.5 mx-auto bg-[#EC72AF] text-white flex justify-center tracking-wide"
-                >
-                  SUBMIT NOW
-                </button> */}
-
                 <AuthButton
                   text="Submit"
                   type="submit"

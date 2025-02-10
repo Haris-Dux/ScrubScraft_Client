@@ -1,26 +1,19 @@
 import { useState } from "react";
 import { FilterDropdown } from "../../components/dropdown/filter-dropdown";
 import { FiFilter } from "react-icons/fi";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { useNavigate } from "react-router-dom";
+import { getAllProductsAsync, setFilters } from "../../features/productSlice";
 
 const ProductFilters: React.FC<{
   onFilterChange: (type: string, value: string) => void;
 }> = ({ onFilterChange }) => {
-  //   const [selectedSort, setSelectedSort] = useState<string>("");
-  //   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  //   const [selectedFabric, setSelectedFabric] = useState<string>("");
-  //   const [selectedColor, setSelectedColor] = useState<string>("");
-  //   const [selectedSize, setSelectedSize] = useState<string>("");
+ const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
   const [isFiltersVisible, setIsFiltersVisible] = useState(false);
 
-  // const sortOptions = ["Newest", "Price: Low to High", "Price: High to Low"];
-  // const categoryOptions = ["All", "Workspace", "Home", "Travel"];
-  // const fabricOptions = ["Cotton", "Silk", "Wool"];
-  // const colorOptions = ["Black", "White", "Red", "Blue"];
-  // const sizeOptions = ["XS", "S", "M", "L", "XL"];
+  
 
   const { category, colors, fabric } = useAppSelector(
     (state) => state.products
@@ -32,6 +25,10 @@ const ProductFilters: React.FC<{
   const categoryOptions = category?.map((item: any) => item.name) || [];
   const fabricOptions = fabric?.map((item: any) => item.name) || [];
   const colorOptions = colors?.map((item: any) => item.label) || [];
+
+   const {  filters } = useAppSelector(
+      (state) => state.products
+    );
 
   return (
     <div className="mx-auto max-w-5xl xl:max-w-6xl xxl:max-w-7xl px-4 md:px-8 lg:px-0 pt-8 pb-0">
@@ -76,18 +73,12 @@ const ProductFilters: React.FC<{
             options={colorOptions}
             onSelect={(value) => onFilterChange("color", value)}
           />
-          {/* <FilterDropdown
-            label="Size"
-            options={sizeOptions}
-            onSelect={(value) => onFilterChange("size", value)}
-          /> */}
 
           <button
             type="button"
             onClick={() => {
-              onFilterChange("category", "");
-              onFilterChange("fabric_type", "");
-              onFilterChange("color", "");
+              dispatch(setFilters({ category: "", fabric_type: "", color: "", page: 1 })); 
+              dispatch(getAllProductsAsync(filters)); 
               navigate("/products", { replace: true });
             }}
             className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"

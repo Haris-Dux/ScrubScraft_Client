@@ -15,7 +15,6 @@ const SignupView: React.FC = () => {
   const navigate = useNavigate();
 
   const { signupLoading } = useAppSelector((state) => state.auth);
-  console.log("signupLoading", signupLoading);
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [formData, setFormData] = useState<SignupFormData>({
