@@ -90,7 +90,7 @@ export default function Header() {
             className="flex items-center space-x-2"
           >
             <img
-              src="/images/newLogo.png"
+              src="/src/assets/logo/newLogo.png"
               alt="logo"
               className="h-10"
             />

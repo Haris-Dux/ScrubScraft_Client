@@ -116,7 +116,7 @@ export const ProductPage: React.FC = () => {
       [key: string]: { downloadURL: string; name: string };
     });
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (path: any) => {
     if ((!selectedSize && !customSize) || !selectedColor || !selectedFabric) {
       let errorMessage = "Please select";
       if (!selectedSize && !customSize) errorMessage += " size";
@@ -165,7 +165,7 @@ export const ProductPage: React.FC = () => {
       console.log("productToCart", productToCart);
 
       dispatch(addToCart(productToCart));
-      navigate("/products");
+      navigate(path);
       toast.success("Item Added to Cart");
     }
   };
@@ -381,7 +381,7 @@ export const ProductPage: React.FC = () => {
 
                 {/* SIZES */}
                 <div>
-                  <div className="header flex justify-between items-center">
+                  <div className="header flex justify-between items-center flex-wrap gap-2">
                     <div className="left flex justify-start items-center gap-2">
                       <h3 className="text-sm font-semibold text-gray-700">
                         Sizes:
@@ -426,15 +426,24 @@ export const ProductPage: React.FC = () => {
                 <CapForm setCap={setCap} />
 
                 {/* ADD TO CART */}
-                <div className="flex gap-4">
+                <div className="flex gap-2 sm:gap-4 flex-col sm:flex-row">
                   <button
                     title="button"
                     type="button"
-                    onClick={handleAddToCart}
+                    onClick={() => handleAddToCart("/products")}
                     className="mt-1.5 flex-1 bg-primary text-white py-3 px-4 rounded-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
                   >
                     <FaShoppingCart />
                     Add To Cart
+                  </button>
+
+                  <button
+                    title="button"
+                    type="button"
+                    onClick={() => handleAddToCart("/cart")}
+                    className="w-full sm:max-w-40 mx-auto mt-1.5 flex-1 bg-primary text-white py-3 px-4 rounded-md hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+                  >
+                    Buy Now
                   </button>
                 </div>
 
