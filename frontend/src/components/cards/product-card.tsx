@@ -30,7 +30,7 @@ export default function ProductCard({ data }: { data: any }) {
               title="Add to cart"
               className="bg-transparent outline-none border-none"
             >
-              <CartIcon />
+              <CartIcon className="text-blue-300" />
             </button>
           </div>
 

@@ -88,7 +88,6 @@ export const ProductPage: React.FC = () => {
   }, []);
 
   const { pricing } = useAppSelector((state) => state.orders);
-  // console.log("pricing", pricing);
 
   const user = useAppSelector((state) => state.auth.user);
   const userID = user?.user?.id;
@@ -96,7 +95,6 @@ export const ProductPage: React.FC = () => {
   const { singleProduct, singleProductloading } = useAppSelector(
     (state) => state.products
   );
-  // console.log("singleProduct", singleProduct);
 
   useEffect(() => {
     if (singleProduct?.images?.primary?.downloadURL) {
@@ -448,6 +446,9 @@ export const ProductPage: React.FC = () => {
                 </div>
 
                 {/* DESCRIPTION */}
+                <h3 className="text-md font-semibold text-gray-700">
+                      Available Fabric
+                    </h3>
                 <p className="text-gray-600 capitalize">
                   {singleProduct?.description}
                 </p>

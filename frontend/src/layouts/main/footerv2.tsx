@@ -39,7 +39,7 @@ const Footer = () => {
               <h1 className="max-w-lg flex items-center text-xl font-semibold tracking-tight text-black xl:text-2xl">
                 <img
                   className="w-auto h-24"
-                  src={"/src/assets/logo/newLogo.png"}
+                  src={"/images/newLogo.png"}
                   alt="logo"
                 />
               </h1>

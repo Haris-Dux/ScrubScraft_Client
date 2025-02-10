@@ -18,10 +18,6 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 const AllProducts: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  // const { products: allproducts, Productloading } = useAppSelector(
-  //   (state) => state.products
-  // );
-
   const { products, Productloading, filters } = useAppSelector(
     (state) => state.products
   );
@@ -51,10 +47,6 @@ const AllProducts: React.FC = () => {
     return paginationLinks;
   };
 
-  // useEffect(() => {
-  //   dispatch(getAllProductsAsync({ category, page }));
-  // }, [dispatch, page, category]);
-
   useEffect(() => {
     dispatch(setFilters({ ...filters, page })); // Ensure page is updated in filters
   }, [page]);
@@ -67,10 +59,7 @@ const AllProducts: React.FC = () => {
     dispatch(getLatestProductsAsync());
   }, []);
 
-  // const handleFilterChange = (filterType: string, value: string) => {
-  //   dispatch(setFilters({ [filterType]: value }));
-  // };
-
+ 
   const handleFilterChange = (filterType: string, value: string) => {
     dispatch(setFilters({ ...filters, [filterType]: value, page: 1 }));
   };
