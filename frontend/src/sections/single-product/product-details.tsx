@@ -447,7 +447,7 @@ export const ProductPage: React.FC = () => {
 
                 {/* DESCRIPTION */}
                 <h3 className="text-md font-semibold text-gray-700">
-                      Available Fabric
+                      Description
                     </h3>
                 <p className="text-gray-600 capitalize">
                   {singleProduct?.description}
