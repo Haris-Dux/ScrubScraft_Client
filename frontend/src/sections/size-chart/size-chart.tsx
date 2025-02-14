@@ -9,7 +9,6 @@ export default function SizeChart() {
   const { sizeChart, sizeCharttloading } = useAppSelector(
     (state) => state.products
   );
-  console.log("sizeChart", sizeChart);
 
   useEffect(() => {
     dispatch(getProductSizeChart());

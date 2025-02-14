@@ -21,7 +21,7 @@ const CartDetails: React.FC = () => {
     (state: RootState) => state.actions
   );
 
-  console.log("cart", cart);
+  // console.log("cart", cart);
 
   useEffect(() => {
     dispatch(getCartTotal());

@@ -17,7 +17,7 @@ interface Product {
   color: string;
   sizes: string | string[];
   colors: { label: string; value: string }[];
-  fabric_type: string | string[];
+  fabric_type: any;
   description: string;
   product_code: string;
   custom_size: boolean;

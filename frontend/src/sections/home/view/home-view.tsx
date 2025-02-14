@@ -12,14 +12,10 @@ import {
   getAllProductsAsync,
   getLatestProductsAsync,
 } from "../../../features/productSlice";
-// import { useSearchParams } from "react-router-dom";
+// import HomeCategories from "../home-categories";
 
 const HomeView = () => {
   const dispatch = useAppDispatch();
-
-  // const [searchParams] = useSearchParams();
-  // const page: number = parseInt(searchParams.get("page") || "1", 10);
-  // const category: string = searchParams.get("category") || "All";
 
   const { filters } = useAppSelector((state) => state.products);
 
@@ -36,6 +32,7 @@ const HomeView = () => {
       <HeroSection />
       <WhyChooseV2 />
       <OurProducts latestProducts={allproducts?.productData} />
+      {/* <HomeCategories /> */}
       <Trusted />
       <CTA />
       <LatestProducts latestProducts={latestProducts} />

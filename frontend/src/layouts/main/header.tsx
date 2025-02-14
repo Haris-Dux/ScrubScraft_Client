@@ -89,11 +89,7 @@ export default function Header() {
             onClick={() => window.scroll(0, 0)}
             className="flex items-center space-x-2"
           >
-            <img
-              src="/images/newLogo.png"
-              alt="logo"
-              className="h-10"
-            />
+            <img src="/images/newLogo.png" alt="logo" className="h-10" />
             <h1
               className={`text-xl sm:text-[1.25rem] font-bold ${
                 state
@@ -137,15 +133,7 @@ export default function Header() {
 
             <button
               type="button"
-              className={`mt-1 ${
-                state
-                  ? "text-gray-700"
-                  : isOnHomePage
-                  ? scrolled
-                    ? "text-gray-600 hover:text-gray-800"
-                    : "text-gray-700 hover:text-white"
-                  : "text-gray-700"
-              }`}
+              className={`mt-1 text-gray-700`}
               onClick={() => setState(!state)}
             >
               {state ? <RxCross2 size={23} /> : <RiMenu3Fill size={22} />}
@@ -202,7 +190,11 @@ export default function Header() {
               );
             })}
 
-            <li className={`flex text-[1rem]`}>
+            <li
+              className={`flex text-[1rem] ${
+                state ? "flex md:hidden" : "hidden"
+              }`}
+            >
               <Link
                 to="/order-track"
                 onClick={handleCloseNavbar}

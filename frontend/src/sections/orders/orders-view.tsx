@@ -47,7 +47,7 @@ const OrdersView = () => {
 
   const user = useAppSelector((state) => state.auth.user);
   const userID = user?.user?.id;
-  console.log("userID", userID);
+  // console.log("userID", userID);
 
   const [isOpen, setIsOpen] = useState(false);
   const [orderId, setOrderId] = useState<string>();

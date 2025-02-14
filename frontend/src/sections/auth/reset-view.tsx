@@ -128,7 +128,7 @@ const ResetView = () => {
                   text="Submit"
                   type="submit"
                   isLoading={false}
-                  onClick={() => console.log("Button clicked")}
+                  // onClick={() => console.log("Button clicked")}
                   className="text-white bg-blue-500 hover:bg-blue-600"
                 />
               </form>

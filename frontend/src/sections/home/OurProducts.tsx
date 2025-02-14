@@ -89,7 +89,7 @@ const OurProducts = ({ latestProducts }: { latestProducts: Product[] }) => {
           <HeaderV2
             badgeText="POPULAR"
             title="Our Products"
-            description="Explore our hottest picks! Discover the most sought-after eyewear styles loved by our customers."
+            description="Elevate your workwear with expertly designed scrubs that combine function, comfort, and professionalism."
           />
 
           {/* DATA */}

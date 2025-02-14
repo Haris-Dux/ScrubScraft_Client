@@ -61,7 +61,7 @@ export const deletereviewsAsync = createAsyncThunk(
     try {
       const response = await axios.post(deleteReviewUrl, id);
       toast.success(response.data.message);
-      console.log("response", response);
+      // console.log("response", response);
       return response.data;
     } catch (error: any) {
       toast.error(error.response?.data?.message);

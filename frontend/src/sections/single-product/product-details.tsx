@@ -1,5 +1,6 @@
 import type React from "react";
 import { useEffect, useState } from "react";
+import clsx from "clsx";
 import { FaShoppingCart } from "react-icons/fa";
 import { StarRating } from "./StarRating";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -40,6 +41,12 @@ interface OtherImages {
   };
 }
 
+interface FabricType {
+  name: string;
+  price: number;
+  _id: string;
+}
+
 export const ProductPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -60,6 +67,9 @@ export const ProductPage: React.FC = () => {
 
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedFabric, setSelectedFabric] = useState<string | null>(null);
+  const [selectedFabricPrice, setselectedFabricPrice] = useState<
+    number | null
+  >();
   const [cap, setCap] = useState(false);
 
   const [nameEngraving, setNameEngraving] = useState<{
@@ -88,6 +98,7 @@ export const ProductPage: React.FC = () => {
   }, []);
 
   const { pricing } = useAppSelector((state) => state.orders);
+  // console.log("pricing", pricing);
 
   const user = useAppSelector((state) => state.auth.user);
   const userID = user?.user?.id;
@@ -95,6 +106,7 @@ export const ProductPage: React.FC = () => {
   const { singleProduct, singleProductloading } = useAppSelector(
     (state) => state.products
   );
+  // console.log("singleProduct", singleProduct);
 
   useEffect(() => {
     if (singleProduct?.images?.primary?.downloadURL) {
@@ -144,11 +156,23 @@ export const ProductPage: React.FC = () => {
           : "no-engraving",
       ].join("-");
 
+      const updatedPrice =
+        singleProduct.price && selectedFabricPrice
+          ? singleProduct.price + selectedFabricPrice
+          : singleProduct.price;
+
+      const updatedSalePrice =
+        singleProduct.sale_price && selectedFabricPrice
+          ? singleProduct.sale_price + selectedFabricPrice
+          : singleProduct.sale_price;
+
       const productToCart: any = {
         ...singleProduct,
         sizes: selectedSize ? selectedSize : false,
         color: selectedColor,
         fabric_type: selectedFabric,
+        price: updatedPrice,
+        sale_price: updatedSalePrice,
         name_engraving: nameEngraving ? nameEngraving : false,
         name_engraving_charges: pricing[1]?.amount,
         cap_charges: pricing[2]?.amount,
@@ -160,7 +184,7 @@ export const ProductPage: React.FC = () => {
         _id: singleProduct.id,
       };
 
-      console.log("productToCart", productToCart);
+      // console.log("productToCart", productToCart);
 
       dispatch(addToCart(productToCart));
       navigate(path);
@@ -172,8 +196,20 @@ export const ProductPage: React.FC = () => {
     setSelectedColor(color.label);
   };
 
-  const handleFabricClick = (fabric: string) => {
-    setSelectedFabric(fabric);
+  useEffect(() => {
+    if (singleProduct?.fabric_type && singleProduct.fabric_type.length > 0) {
+      const defaultFabric = singleProduct.fabric_type[0] as FabricType;
+
+      if (defaultFabric) {
+        setSelectedFabric(defaultFabric?.name);
+        setselectedFabricPrice(defaultFabric?.price);
+      }
+    }
+  }, [singleProduct]);
+
+  const handleFabricClick = (fabric: FabricType) => {
+    setSelectedFabric(fabric?.name);
+    setselectedFabricPrice(fabric?.price);
   };
 
   const handleStarClick = (starValue: number) => {
@@ -183,7 +219,7 @@ export const ProductPage: React.FC = () => {
   const handleSubmitReview = async () => {
     const productID = id;
 
-    console.log("formData", formData);
+    // console.log("formData", formData);
 
     if (!formData.review || formData.rating === 0) {
       toast.error("Please leave a review to rate the product");
@@ -194,7 +230,7 @@ export const ProductPage: React.FC = () => {
       const response = await dispatch(
         createreviewsAsync({ productID, userID, ...formData })
       );
-      console.log("response ", response);
+      // console.log("response ", response);
       if (response.payload !== undefined) {
         await dispatch(getallreviewsAsync(id));
       }
@@ -272,13 +308,17 @@ export const ProductPage: React.FC = () => {
                             Rs.
                           </span>
                           <span className="font-semibold text-[0.90rem] line-through text-gray-500">
-                            {singleProduct?.price}
+                            {/* {singleProduct?.price} */}
+                            {(singleProduct?.price ?? 0) +
+                              (selectedFabricPrice ?? 0)}
                           </span>
                           <span className="pl-2 font-semibold text-[1.15rem] text-red-600">
                             Rs.
                           </span>
                           <span className="font-semibold text-[1.15rem] text-red-600">
-                            {singleProduct?.sale_price}
+                            {/* {singleProduct?.sale_price} */}
+                            {(singleProduct?.sale_price ?? 0) +
+                              (selectedFabricPrice ?? 0)}
                           </span>
                         </>
                       ) : (
@@ -287,7 +327,8 @@ export const ProductPage: React.FC = () => {
                             Rs.
                           </span>
                           <span className="font-semibold text-[1.15rem] text-gray-800">
-                            {singleProduct?.price}
+                            {(singleProduct?.price ?? 0) +
+                              (selectedFabricPrice ?? 0)}
                           </span>
                         </>
                       )}
@@ -330,9 +371,9 @@ export const ProductPage: React.FC = () => {
                   <div className="flex flex-wrap gap-2 mt-2">
                     {singleProduct?.colors?.map((color: any) => (
                       <button
-                        key={color._id}
+                        key={color?._id}
                         type="button"
-                        title="button"
+                        title={color?.label}
                         className={`w-9 h-9 border-2 rounded-full shrink-0 flex items-center justify-center ${
                           selectedColor === color.label
                             ? "border-gray-800"
@@ -358,29 +399,28 @@ export const ProductPage: React.FC = () => {
                   </div>
 
                   <div className="flex flex-wrap gap-2 mt-2">
-                    {singleProduct?.fabric_type?.map((fabric: string) => (
+                    {singleProduct?.fabric_type?.map((fabric: any) => (
                       <button
-                        key={fabric}
+                        key={fabric?._id}
                         type="button"
-                        className={`px-4 h-9 border-none outline-none text-sm shadow-sm rounded-md flex items-center justify-center shrink-0 
-          ${
-            selectedFabric === fabric
-              ? "bg-primary text-gray-50"
-              : "bg-gray-200 text-black"
-          }
-        `}
+                        className={clsx(
+                          "px-4 h-9 border-none outline-none text-sm shadow-sm rounded-md flex items-center justify-center shrink-0",
+                          selectedFabric === fabric?.name
+                            ? "bg-primary text-gray-50"
+                            : "bg-gray-200 text-black"
+                        )}
                         onClick={() => handleFabricClick(fabric)}
                       >
-                        {fabric}
+                        {fabric?.name}
                       </button>
                     ))}
                   </div>
                 </div>
 
                 {/* SIZES */}
-                <div>
+                <div className="mt-2">
                   <div className="header flex justify-between items-center flex-wrap gap-2">
-                    <div className="left flex justify-start items-center gap-2">
+                    <div className="left flex justify-start flex-col sm:flex-row items-start sm:items-center gap-2">
                       <h3 className="text-sm font-semibold text-gray-700">
                         Sizes:
                       </h3>
@@ -389,7 +429,8 @@ export const ProductPage: React.FC = () => {
                         onClick={openModal}
                         className="text-sm font-semibold text-primary underline underline-offset-2 cursor-pointer"
                       >
-                        Do you want Custom Size? {customSize && "Added"}
+                        Do you want Custom Size? Click Here{" "}
+                        {customSize && "Added"}
                       </button>
                     </div>
                     <Link
@@ -446,12 +487,14 @@ export const ProductPage: React.FC = () => {
                 </div>
 
                 {/* DESCRIPTION */}
-                <h3 className="text-md font-semibold text-gray-700">
-                      Description
-                    </h3>
-                <p className="text-gray-600 capitalize">
-                  {singleProduct?.description}
-                </p>
+                <div className="description">
+                  <h3 className="mb-1 text-md font-semibold text-gray-700">
+                    Description
+                  </h3>
+                  <p className="text-gray-600 capitalize">
+                    {singleProduct?.description}
+                  </p>
+                </div>
               </div>
             </div>
 

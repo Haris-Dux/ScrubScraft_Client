@@ -13,14 +13,9 @@ const ProductFilters: React.FC<{
   const navigate = useNavigate();
   const [isFiltersVisible, setIsFiltersVisible] = useState(false);
 
-  
-
   const { category, colors, fabric } = useAppSelector(
     (state) => state.products
   );
-  console.log("category", category);
-  console.log("colors", colors);
-  console.log("fabric", fabric);
 
   const categoryOptions = category?.map((item: any) => item.name) || [];
   const fabricOptions = fabric?.map((item: any) => item.name) || [];

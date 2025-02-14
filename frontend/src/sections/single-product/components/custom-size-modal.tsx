@@ -47,14 +47,14 @@ export default function CustomSizeModal({
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 sm:p-4 z-50"
       onClick={onCancel}
     >
       <div
         className="bg-white rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-6">
+        <div className="px-4 py-5 sm:px-6 sm:py-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-semibold text-gray-800">Custom Size</h2>
             <button
@@ -67,7 +67,7 @@ export default function CustomSizeModal({
             </button>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <InputField
                 name="shirtLength"
                 label="Shirt Length"

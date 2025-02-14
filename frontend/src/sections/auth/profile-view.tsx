@@ -10,8 +10,8 @@ const ProfileView = () => {
   const navigate = useNavigate();
 
   const { user, updateLoading } = useAppSelector((state: any) => state.auth);
-  console.log("user", user);
-  console.log("updateLoading", updateLoading);
+  // console.log("user", user);
+  // console.log("updateLoading", updateLoading);
 
   const userID = user?.user?.id;
 
@@ -67,7 +67,7 @@ const ProfileView = () => {
       return;
     }
 
-    console.log("updatedFields", updatedFields);
+    // console.log("updatedFields", updatedFields);
 
     dispatch(updateuserAsync({ id, ...updatedFields })).then((res) => {
       if (res.payload.message === "Update Successfull") {

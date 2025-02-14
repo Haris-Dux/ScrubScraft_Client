@@ -13,13 +13,24 @@ const getAllCategoriesUrl = `https://admin.scrubscraft.shop/productDetails/getAl
 // GET ALL PRODUCT ASYNC THUNK
 export const getAllProductsAsync = createAsyncThunk(
   "products/fetchAll",
-  async (filters: ProductState["filters"]) => {
+  async (data: any) => {
     try {
-      const filteredParams = Object.fromEntries(
-        Object.entries(filters).filter(([_, value]) => value !== undefined && value !== "")
+      const category =
+        data?.category !== undefined && data?.category !== null
+          ? `&category=${data?.category}`
+          : "";
+      const color =
+        data?.color !== undefined && data?.color !== null
+          ? `&color=${data?.color}`
+          : "";
+      const fabric_type =
+        data?.fabric_type !== undefined && data?.fabric_type !== null
+          ? `&fabric_type=${data?.fabric_type}`
+          : "";
+
+      const response = await axios.post(
+        `${getAllProductUrl}?&page=${data?.page}${category}${color}${fabric_type}`
       );
-      const queryString = new URLSearchParams(filteredParams as any).toString();
-      const response = await axios.post(`${getAllProductUrl}?${queryString}`);
       return response.data;
     } catch (error: any) {
       throw new Error(error);
@@ -137,7 +148,7 @@ interface Product {
   category: string;
   product_code: string;
   sizes: Array<string>;
-  fabric_type: Array<string>;
+  fabric_type: FabricType;
   colors: Array<string>;
   images: Images;
   averageRating: number;
@@ -146,6 +157,12 @@ interface Product {
   sale_price: number | undefined;
   price: number;
   stock: number;
+}
+
+interface FabricType {
+  name: string;
+  price: number;
+  _id: string;
 }
 
 // INITIAL STATE
@@ -157,7 +174,7 @@ interface ProductState {
   sizeChart: Product[] | any;
   products: Product[] | any;
   latestProducts: Product[] | any;
-  singleProduct: Product | null;
+  singleProduct: any | null;
   category: any;
   colors: any;
   fabric: any;

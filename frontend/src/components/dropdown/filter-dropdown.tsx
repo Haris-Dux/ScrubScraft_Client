@@ -37,9 +37,9 @@ export function FilterDropdown({
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-gray-50 transition-colors"
+        className="flex items-center gap-2 px-4 py-2.5 border border-gray-300 shadow-sm rounded-lg hover:bg-gray-50 transition-colors"
       >
-        <span className="text-gray-700">{label}</span>
+        <span className="text-gray-700 text-sm sm:text-[16px]">{label}</span>
         <IoChevronDown
           className={`w-4 h-4 text-gray-500 transition-transform ${
             isOpen ? "rotate-180" : ""
@@ -48,7 +48,7 @@ export function FilterDropdown({
       </button>
 
       {isOpen && (
-        <div className="absolute z-20 mt-2 w-48 bg-white border rounded-lg shadow-lg">
+        <div className="absolute z-20 mt-2 w-40 sm:w-48 bg-white border rounded-lg shadow-lg">
           <div className="py-2">
             {options.map((option) => (
               <button
@@ -58,9 +58,9 @@ export function FilterDropdown({
                   onSelect(option);
                   setIsOpen(false);
                 }}
-                className={`w-full px-4 py-2 text-left hover:bg-gray-50 transition-colors ${
+                className={`text-sm sm:text-[15px] w-full px-4 py-2 text-left hover:bg-gray-50 transition-colors ${
                   selected === option
-                    ? "text-blue-600 bg-blue-50"
+                    ? "text-blue-600 bg-blue-50 font-semibold"
                     : "text-gray-700"
                 }`}
               >

@@ -83,7 +83,7 @@ export default function UpdateReviewModal({
       const payload: Partial<UpdateReviewPayload> = { id, ...updateReviewData };
       payload.rating = selectedRating;
 
-      console.log("payload", payload);
+      // console.log("payload", payload);
 
       dispatch(updatereviewsAsync(payload as UpdateReviewPayload)).then(() => {
         dispatch(getallreviewsAsync(productID));

@@ -52,8 +52,14 @@ const productsSchema = new mongoose.Schema(
     ],
     fabric_type: [
       {
-        type: String,
-        required: [true, "fabric type required"],
+        name: {
+          type: String,
+          required: [true, "Name Value required"],
+        },
+        price: {
+          type: String,
+          required: [true, "Price Value required"],
+        },
       },
     ],
     latest: {

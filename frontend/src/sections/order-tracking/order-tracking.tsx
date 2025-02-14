@@ -12,7 +12,7 @@ const OrderTrackingView = () => {
     (state) => state.orders
   );
 
-  console.log("trackOrder", trackOrder);
+  // console.log("trackOrder", trackOrder);
 
   const ToDown = () => {
     window.scrollTo({

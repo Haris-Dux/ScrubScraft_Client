@@ -84,7 +84,7 @@ const LatestProducts = ({ latestProducts }: { latestProducts: Product[] }) => {
           <HeaderV2
             badgeText="LATEST"
             title="Latest Products"
-            description="Explore our hottest picks! Discover the most sought-after eyewear styles loved by our customers."
+            description="Elevate your workwear with expertly designed scrubs that combine function, comfort, and professionalism."
           />
 
           {/* DATA */}

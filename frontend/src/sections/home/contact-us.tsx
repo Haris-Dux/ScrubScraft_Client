@@ -26,7 +26,7 @@ export default function ContactUs() {
         "https://api.client.scrubscraft.shop/contact/createContact",
         formdata
       );
-      console.log("response", response);
+      // console.log("response", response);
       toast.success(response?.data?.msg);
 
       if (response.status === 201) {
