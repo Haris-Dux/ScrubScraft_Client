@@ -156,23 +156,32 @@ export const ProductPage: React.FC = () => {
           : "no-engraving",
       ].join("-");
 
-      const updatedPrice =
-        singleProduct.price && selectedFabricPrice
-          ? singleProduct.price + selectedFabricPrice
-          : singleProduct.price;
+      // const updatedPrice =
+      //   singleProduct.price && selectedFabricPrice
+      //     ? singleProduct.price + selectedFabricPrice
+      //     : singleProduct.price;
 
-      const updatedSalePrice =
-        singleProduct.sale_price && selectedFabricPrice
-          ? singleProduct.sale_price + selectedFabricPrice
-          : singleProduct.sale_price;
+      // const updatedSalePrice =
+      //   singleProduct.sale_price && selectedFabricPrice
+      //     ? singleProduct.sale_price + selectedFabricPrice
+      //     : singleProduct.sale_price;
+
+      const productPrice = Number(singleProduct.price ?? 0);
+      const productSalePrice = Number(singleProduct.sale_price ?? 0);
+      const fabricPrice = Number(selectedFabricPrice ?? 0);
+  
+      const updatedPrice = productPrice + fabricPrice;
+      const updatedSalePrice = productSalePrice + fabricPrice;
 
       const productToCart: any = {
         ...singleProduct,
         sizes: selectedSize ? selectedSize : false,
         color: selectedColor,
         fabric_type: selectedFabric,
+
         price: updatedPrice,
         sale_price: updatedSalePrice,
+
         name_engraving: nameEngraving ? nameEngraving : false,
         name_engraving_charges: pricing[1]?.amount,
         cap_charges: pricing[2]?.amount,
@@ -308,17 +317,15 @@ export const ProductPage: React.FC = () => {
                             Rs.
                           </span>
                           <span className="font-semibold text-[0.90rem] line-through text-gray-500">
-                            {/* {singleProduct?.price} */}
-                            {(singleProduct?.price ?? 0) +
-                              (selectedFabricPrice ?? 0)}
+                            {Number(singleProduct?.price ?? 0) +
+                              Number(selectedFabricPrice ?? 0)}
                           </span>
                           <span className="pl-2 font-semibold text-[1.15rem] text-red-600">
                             Rs.
                           </span>
                           <span className="font-semibold text-[1.15rem] text-red-600">
-                            {/* {singleProduct?.sale_price} */}
-                            {(singleProduct?.sale_price ?? 0) +
-                              (selectedFabricPrice ?? 0)}
+                            {Number(singleProduct?.sale_price ?? 0) +
+                              Number(selectedFabricPrice ?? 0)}
                           </span>
                         </>
                       ) : (
@@ -327,8 +334,8 @@ export const ProductPage: React.FC = () => {
                             Rs.
                           </span>
                           <span className="font-semibold text-[1.15rem] text-gray-800">
-                            {(singleProduct?.price ?? 0) +
-                              (selectedFabricPrice ?? 0)}
+                            {Number(singleProduct?.price ?? 0) +
+                              Number(selectedFabricPrice ?? 0)}
                           </span>
                         </>
                       )}

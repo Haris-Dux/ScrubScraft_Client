@@ -1,1 +1,1 @@
-export const Base_url = "https://api.client.//scrubscraft.shop";
+export const Base_url = "http://localhost:5000";
