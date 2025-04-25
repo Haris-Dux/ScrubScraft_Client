@@ -72,7 +72,7 @@ export const getProducts = async (req, res, next) => {
       query.sizes = { $in: size };
     }
     if (fabric_type) {
-      query.fabric_type = { $in: fabric_type };
+      query['fabric_type.name'] = { $in: fabric_type };
     }
 
     const productData = await ProductsModel.find(query)
@@ -127,6 +127,7 @@ export const getProductById = async (req, res, next) => {
     if (!id) throw new Error("Product Id Required");
     const product = await ProductsModel.findById(id);
     const productReviews = await reviewsAndRatings.find({ productID: id });
+    const relatedProducts = await ProductsModel.find({category:product.category});
 
     let averageRating = 0;
     if (productReviews.length > 0) {
@@ -141,7 +142,9 @@ export const getProductById = async (req, res, next) => {
       ...productDataWithoutId,
       id: product._id,
       averageRating: parseFloat(averageRating.toFixed(1)),
+      relatedProducts:relatedProducts
     };
+   
     setMongoose();
     return res.status(200).json(productWithRating);
   } catch (error) {

@@ -6,7 +6,7 @@ import { RequestData } from "../sections/checkout/checkout-details";
 import { data } from "../sections/orders/orders-view";
 
 // API URLs
-const pricingDetailsUrl = `https://admin.scrubscraft.shop/pricing/getPricing`;
+const pricingDetailsUrl = `https://api.admin.scrubscraft.shop/pricing/getPricing`;
 const createOrderUrl = `${Base_url}/orders/createOrder`;
 const createOrderForGuestUrl = `${Base_url}/orders/createOrderAsGuest`;
 const getAllOrderUrl = `${Base_url}/orders/getAllOrdersForUser`;
