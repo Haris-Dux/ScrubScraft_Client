@@ -392,9 +392,9 @@ export default function Header() {
                           : isOnHomePage
                           ? scrolled
                             ? "text-gray-700"
-                            : "text-gray-50"
+                            : "text-gray-700"
                           : "text-gray-700"
-                      } `}
+                      }`}
                     />
                   </span>
                 </Link>
