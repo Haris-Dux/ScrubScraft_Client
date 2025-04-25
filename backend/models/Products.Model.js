@@ -72,6 +72,20 @@ const productsSchema = new mongoose.Schema(
       image3: imageSchema,
       image4: imageSchema,
     },
+    trouserOptions: [
+      {
+        name: {
+          type: String
+        },
+        price: {
+          type: Number
+        },
+        selected : {
+          type:Boolean,
+          default: false,
+        }
+      },
+    ],
   },
   { timestamps: true }
 );
