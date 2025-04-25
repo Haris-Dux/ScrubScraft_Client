@@ -37,12 +37,7 @@ app.use(session({
   }));
 
 app.use("", router);
-// const root = path.resolve();
-// app.use(express.static(path.join(root, "dist")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(root, "dist/index.html"));
-// });
 
 mongoose
   .connect(process.env.MONGODB_URI)
