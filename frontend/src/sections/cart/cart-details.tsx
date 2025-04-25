@@ -21,7 +21,7 @@ const CartDetails: React.FC = () => {
     (state: RootState) => state.actions
   );
 
-  // console.log("cart", cart);
+  console.log("cart", cart);
 
   useEffect(() => {
     dispatch(getCartTotal());
@@ -118,6 +118,14 @@ const CartDetails: React.FC = () => {
                                 </p>
                                 <p className="font-medium text-[14px] sm:text-[15px]">
                                   {product?.product_code}
+                                </p>
+                              </div>
+                              <div>
+                                <p className="text-sm text-gray-500">
+                                  Trouser
+                                </p>
+                                <p className="font-medium text-[14px] sm:text-[15px] capitalize">
+                                  {product?.trouser_details?.name}
                                 </p>
                               </div>
 

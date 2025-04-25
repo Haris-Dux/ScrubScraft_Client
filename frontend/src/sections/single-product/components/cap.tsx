@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useAppSelector } from "../../../app/hooks";
 
-export default function CapForm({
-  setCap,
-}: {
-  setCap: (value: boolean) => void;
-}) {
+export default function CapForm({setCap}: { setCap: (value: boolean) => void}) {
   const [selectedOption, setSelectedOption] = useState(false);
   const { pricing } = useAppSelector((state) => state.orders);
 

@@ -15,6 +15,8 @@ interface Product {
   price: number;
   stock: number;
   color: string;
+  trouser: boolean;
+  trouser_details: any;
   sizes: string | string[];
   colors: { label: string; value: string }[];
   fabric_type: any;
@@ -76,11 +78,14 @@ const ActionsSlice = createSlice({
 
       let basePrice = item.sale_price || item.price;
 
-      let engravingCharge = item.name_engraving ? item.name_engraving_charges : 0;
+      let engravingCharge = item.name_engraving
+        ? item.name_engraving_charges
+        : 0;
       let customSizeCharge = item.custom_size ? item.custom_size_charges : 0;
       let capCharge = item.cap ? item.cap_charges : 0;
 
-      let itemTotalPrice = basePrice + engravingCharge + capCharge + customSizeCharge;
+      let itemTotalPrice =
+        basePrice + engravingCharge + capCharge + customSizeCharge;
 
       if (existingItemIndex !== -1) {
         state.cart[existingItemIndex].quantity += 1;
@@ -100,14 +105,32 @@ const ActionsSlice = createSlice({
     getCartTotal: (state) => {
       const { totalPrice, totalQuantity } = state.cart.reduce(
         (cartTotal, cartItem) => {
-          const { sale_price, price, quantity, name_engraving, name_engraving_charges, cap, cap_charges, custom_size_charges, custom_size } = cartItem;
+          const {
+            sale_price,
+            price,
+            quantity,
+            name_engraving,
+            name_engraving_charges,
+            cap,
+            cap_charges,
+            custom_size_charges,
+            custom_size,
+          } = cartItem;
           let basePrice = sale_price || price;
-          
-          let engravingCharge = name_engraving ? name_engraving_charges * quantity : 0;
-          let customSizeCharge = custom_size ? custom_size_charges * quantity : 0;
+
+          let engravingCharge = name_engraving
+            ? name_engraving_charges * quantity
+            : 0;
+          let customSizeCharge = custom_size
+            ? custom_size_charges * quantity
+            : 0;
           let capCharge = cap ? cap_charges * quantity : 0;
 
-          let itemTotal = basePrice * quantity + engravingCharge + capCharge + customSizeCharge;
+          let itemTotal =
+            basePrice * quantity +
+            engravingCharge +
+            capCharge +
+            customSizeCharge;
 
           cartTotal.totalPrice += itemTotal;
           cartTotal.totalQuantity += quantity;

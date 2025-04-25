@@ -20,6 +20,8 @@ import LoadingScreen from "../../components/loading-screen/loading-screen";
 import CustomSizeModal from "./components/custom-size-modal";
 import { pricingDetailsAsync } from "../../features/orderSlice";
 import CapForm from "./components/cap";
+import TrouserDetailsForm from "./components/trousers";
+import RelatedProducts from "./RelatedProducts";
 // import CapForm from "./components/cap";
 
 export interface ReviewFormData {
@@ -71,6 +73,15 @@ export const ProductPage: React.FC = () => {
     number | null
   >();
   const [cap, setCap] = useState(false);
+
+  const [selectedTrouser, setSelectedTrouser] = useState<{
+    _id: number;
+    name: string;
+    price: string;
+    selected: boolean;
+  } | null>(null);
+
+  // console.log("selectedTrouser", selectedTrouser);
 
   const [nameEngraving, setNameEngraving] = useState<{
     name: string;
@@ -169,9 +180,11 @@ export const ProductPage: React.FC = () => {
       const productPrice = Number(singleProduct.price ?? 0);
       const productSalePrice = Number(singleProduct.sale_price ?? 0);
       const fabricPrice = Number(selectedFabricPrice ?? 0);
-  
+
       const updatedPrice = productPrice + fabricPrice;
-      const updatedSalePrice = productSalePrice + fabricPrice;
+      // const updatedSalePrice = productSalePrice + fabricPrice;
+      const updatedSalePrice =
+        productSalePrice > 0 ? productSalePrice + fabricPrice : updatedPrice;
 
       const productToCart: any = {
         ...singleProduct,
@@ -183,17 +196,20 @@ export const ProductPage: React.FC = () => {
         sale_price: updatedSalePrice,
 
         name_engraving: nameEngraving ? nameEngraving : false,
-        name_engraving_charges: pricing[1]?.amount,
-        cap_charges: pricing[2]?.amount,
-        custom_size_charges: pricing[3]?.amount,
+        name_engraving_charges: pricing[1]?.amount ? pricing[1]?.amount : 0,
+        cap_charges: pricing[2]?.amount ? pricing[2]?.amount : 0,
+        custom_size_charges: pricing[3]?.amount ? pricing[3]?.amount : 0,
         cap: cap ? cap : false,
+        trouser: selectedTrouser ? true : false,
+        trouser_details: selectedTrouser ? selectedTrouser : null,
+        trouserOptions: selectedTrouser ? selectedTrouser?.name : null,
         custom_size: customSize ? customSize : false,
         uniqueId,
         quantity: 1,
         _id: singleProduct.id,
       };
 
-      // console.log("productToCart", productToCart);
+      console.log("productToCart", productToCart);
 
       dispatch(addToCart(productToCart));
       navigate(path);
@@ -470,6 +486,11 @@ export const ProductPage: React.FC = () => {
 
                 <NameEngravingForm setNameEngraving={setNameEngraving} />
                 <CapForm setCap={setCap} />
+                <TrouserDetailsForm
+                  trouserOptions={singleProduct?.trouserOptions}
+                  selectedTrouser={selectedTrouser}
+                  setSelectedTrouser={setSelectedTrouser}
+                />
 
                 {/* ADD TO CART */}
                 <div className="flex gap-2 sm:gap-4 flex-col sm:flex-row">
@@ -521,6 +542,8 @@ export const ProductPage: React.FC = () => {
               productID={id}
             />
           </div>
+
+          <RelatedProducts latestProducts={singleProduct?.relatedProducts} />
         </>
       )}
     </>
