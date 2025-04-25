@@ -103,7 +103,10 @@ const CartDetails: React.FC = () => {
                                   {!product?.sizes && product?.custom_size
                                     ? "Custom size selected"
                                     : product?.sizes}
-                                    <span className="text-gray-500 text-xs ml-1">{product?.custom_size && `(Rs.${product?.custom_size_charges})`}</span>
+                                  <span className="text-gray-500 text-xs ml-1">
+                                    {product?.custom_size &&
+                                      `(Rs.${product?.custom_size_charges})`}
+                                  </span>
                                 </p>
                               </div>
                               <div>
@@ -120,23 +123,29 @@ const CartDetails: React.FC = () => {
                                   {product?.product_code}
                                 </p>
                               </div>
-                              <div>
-                                <p className="text-sm text-gray-500">
-                                  Trouser
-                                </p>
-                                <p className="font-medium text-[14px] sm:text-[15px] capitalize">
-                                  {product?.trouser_details?.name}
-                                </p>
-                              </div>
+
+                              {product?.trouser && (
+                                <div>
+                                  <p className="text-sm text-gray-500">
+                                    Trouser
+                                  </p>
+                                  <p className="font-medium text-[14px] sm:text-[15px] capitalize">
+                                    {product?.trouser_details?.name}
+                                  </p>
+                                </div>
+                              )}
 
                               {product?.cap && (
                                 <div>
-                                <p className="text-sm text-gray-500">Cap</p>
-                                <p className="font-medium text-[14px] sm:text-[15px]">
-                                  {product?.cap && `Added`}  
-                                  <span className="text-gray-500 text-xs ml-1">{product?.cap && `(Rs.${product?.cap_charges})`}</span>
-                                </p>
-                              </div>
+                                  <p className="text-sm text-gray-500">Cap</p>
+                                  <p className="font-medium text-[14px] sm:text-[15px]">
+                                    {product?.cap && `Added`}
+                                    <span className="text-gray-500 text-xs ml-1">
+                                      {product?.cap &&
+                                        `(Rs.${product?.cap_charges})`}
+                                    </span>
+                                  </p>
+                                </div>
                               )}
 
                               {product?.name_engraving && (
@@ -146,8 +155,11 @@ const CartDetails: React.FC = () => {
                                   </p>
                                   <p className="font-medium">
                                     {product?.name_engraving.name} (
-                                    {product?.name_engraving.position} side) 
-                                  <span className="text-gray-500 text-xs ml-1">{product?.name_engraving && `(Rs.${product?.name_engraving_charges})`}</span>
+                                    {product?.name_engraving.position} side)
+                                    <span className="text-gray-500 text-xs ml-1">
+                                      {product?.name_engraving &&
+                                        `(Rs.${product?.name_engraving_charges})`}
+                                    </span>
                                   </p>
                                 </div>
                               )}
