@@ -6,9 +6,9 @@ const getAllProductUrl = `${Base_url}/products/getProducts`;
 const getProductById = `${Base_url}/products/getProductById`;
 const getLatestProductUrl = `${Base_url}/products/getLatestPRoducts`;
 
-const getAllFabricsUrl = `https://admin.scrubscraft.shop/productDetails/getAllFabrics`;
-const getAllColorsUrl = `https://admin.scrubscraft.shop/productDetails/getAllColors`;
-const getAllCategoriesUrl = `https://admin.scrubscraft.shop/productDetails/getAllCategories`;
+const getAllFabricsUrl = `https://api.admin.scrubscraft.shop/productDetails/getAllFabrics`;
+const getAllColorsUrl = `https://api.admin.scrubscraft.shop/productDetails/getAllColors`;
+const getAllCategoriesUrl = `https://api.admin.scrubscraft.shop/productDetails/getAllCategories`;
 
 // GET ALL PRODUCT ASYNC THUNK
 export const getAllProductsAsync = createAsyncThunk(
