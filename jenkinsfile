@@ -21,7 +21,7 @@ pipeline {
                     echo "Branch name is: ${branchName}"
                     if (branchName == 'main') {
                         echo "Branch name: ${branchName}"
-                         env.FRONTEND_PORT = '5173'
+                         env.FRONTEND_PORT = '5174'
                          env.BACKEND_PORT = '8000'
                          env.VITE_API_URL = 'http://46.202.128.126:8040'
                     } else if (branchName == 'develop') {
