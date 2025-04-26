@@ -70,21 +70,10 @@ export const ProductPage: React.FC = () => {
   const [selectedFabric, setSelectedFabric] = useState<string | null>(null);
   const [selectedTrouser, setSelectedTrouser] = useState<string | null>(null);
 
-  console.log("selectedTrouser", selectedTrouser);
-
   const [selectedFabricPrice, setselectedFabricPrice] = useState<
     number | null
   >();
   const [cap, setCap] = useState(false);
-
-  // const [selectedTrouser, setSelectedTrouser] = useState<{
-  //   _id: number;
-  //   name: string;
-  //   price: string;
-  //   selected: boolean;
-  // } | null>(null);
-
-  // console.log("selectedTrouser", selectedTrouser);
 
   const [nameEngraving, setNameEngraving] = useState<{
     name: string;
@@ -112,7 +101,6 @@ export const ProductPage: React.FC = () => {
   }, []);
 
   const { pricing } = useAppSelector((state) => state.orders);
-  // console.log("pricing", pricing);
 
   const user = useAppSelector((state) => state.auth.user);
   const userID = user?.user?.id;
@@ -120,7 +108,6 @@ export const ProductPage: React.FC = () => {
   const { singleProduct, singleProductloading } = useAppSelector(
     (state) => state.products
   );
-  // console.log("singleProduct", singleProduct);
 
   useEffect(() => {
     if (singleProduct?.images?.primary?.downloadURL) {
@@ -132,15 +119,6 @@ export const ProductPage: React.FC = () => {
   const handleImageClick = (url: string) => {
     setMainImage(url);
   };
-
-  // useEffect(() => {
-  //   if (singleProduct?.trouserOptions && singleProduct.trouserOptions.length > 0) {
-  //     const defaultTrouser = singleProduct.trouserOptions[0];
-  //     if (defaultTrouser) {
-  //       setSelectedTrouser(defaultTrouser?.name);
-  //     }
-  //   }
-  // }, [singleProduct]);
 
   const { primary, ...otherImages } =
     singleProduct?.images ||
@@ -179,22 +157,11 @@ export const ProductPage: React.FC = () => {
           : "no-engraving",
       ].join("-");
 
-      // const updatedPrice =
-      //   singleProduct.price && selectedFabricPrice
-      //     ? singleProduct.price + selectedFabricPrice
-      //     : singleProduct.price;
-
-      // const updatedSalePrice =
-      //   singleProduct.sale_price && selectedFabricPrice
-      //     ? singleProduct.sale_price + selectedFabricPrice
-      //     : singleProduct.sale_price;
-
       const productPrice = Number(singleProduct.price ?? 0);
       const productSalePrice = Number(singleProduct.sale_price ?? 0);
       const fabricPrice = Number(selectedFabricPrice ?? 0);
 
       const updatedPrice = productPrice + fabricPrice;
-      // const updatedSalePrice = productSalePrice + fabricPrice;
       const updatedSalePrice =
         productSalePrice > 0 ? productSalePrice + fabricPrice : updatedPrice;
 
@@ -471,13 +438,14 @@ export const ProductPage: React.FC = () => {
                 {/* TROUSER TYPE */}
                 <div>
                   <div className="header flex justify-between items-center">
-                    <h3 className="text-sm font-semibold text-gray-700">
+                    {singleProduct?.trouserOptions?.some((item:any) => item?.selected) && <h3 className="text-sm font-semibold text-gray-700">
                       Choose Trouser Option
-                    </h3>
+                    </h3>}
                   </div>
 
                   <div className="flex flex-wrap gap-2 mt-2">
-                    {singleProduct?.trouserOptions?.map((trouser: any) => (
+                    {singleProduct?.trouserOptions?.filter((trouser: any) => trouser?.selected).map((trouser: any) => (
+                      
                       <button
                         key={trouser?._id}
                         type="button"
@@ -541,11 +509,6 @@ export const ProductPage: React.FC = () => {
 
                 <NameEngravingForm setNameEngraving={setNameEngraving} />
                 <CapForm setCap={setCap} />
-                {/* <TrouserDetailsForm
-                  trouserOptions={singleProduct?.trouserOptions}
-                  selectedTrouser={selectedTrouser}
-                  setSelectedTrouser={setSelectedTrouser}
-                /> */}
 
                 {/* ADD TO CART */}
                 <div className="flex gap-2 sm:gap-4 flex-col sm:flex-row">
