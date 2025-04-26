@@ -20,7 +20,6 @@ import LoadingScreen from "../../components/loading-screen/loading-screen";
 import CustomSizeModal from "./components/custom-size-modal";
 import { pricingDetailsAsync } from "../../features/orderSlice";
 import CapForm from "./components/cap";
-import TrouserDetailsForm from "./components/trousers";
 import RelatedProducts from "./RelatedProducts";
 // import CapForm from "./components/cap";
 
