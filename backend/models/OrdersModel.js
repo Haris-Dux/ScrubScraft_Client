@@ -56,10 +56,6 @@ const orderSchema = new mongoose.Schema(
     delivery_instruction: {
       type: String,
       default:""
-    },
-    trouserOption:{
-      type:String,
-      default:null
     }
   },
   { timestamps: true }

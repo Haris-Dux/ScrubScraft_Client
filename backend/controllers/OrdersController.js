@@ -17,8 +17,7 @@ export const createOrder = async (req, res, next) => {
       area,
       province,
       postal_code,
-      delivery_instruction,
-      trouserOption
+      delivery_instruction
     
     } = req.body;
 
@@ -53,8 +52,7 @@ export const createOrder = async (req, res, next) => {
       area,
       province,
       postal_code,
-      delivery_instruction,
-      trouserOption
+      delivery_instruction
      
     });
 
