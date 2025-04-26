@@ -69,17 +69,21 @@ export const ProductPage: React.FC = () => {
 
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedFabric, setSelectedFabric] = useState<string | null>(null);
+  const [selectedTrouser, setSelectedTrouser] = useState<string | null>(null);
+
+  console.log("selectedTrouser", selectedTrouser);
+
   const [selectedFabricPrice, setselectedFabricPrice] = useState<
     number | null
   >();
   const [cap, setCap] = useState(false);
 
-  const [selectedTrouser, setSelectedTrouser] = useState<{
-    _id: number;
-    name: string;
-    price: string;
-    selected: boolean;
-  } | null>(null);
+  // const [selectedTrouser, setSelectedTrouser] = useState<{
+  //   _id: number;
+  //   name: string;
+  //   price: string;
+  //   selected: boolean;
+  // } | null>(null);
 
   // console.log("selectedTrouser", selectedTrouser);
 
@@ -129,6 +133,15 @@ export const ProductPage: React.FC = () => {
   const handleImageClick = (url: string) => {
     setMainImage(url);
   };
+
+  // useEffect(() => {
+  //   if (singleProduct?.trouserOptions && singleProduct.trouserOptions.length > 0) {
+  //     const defaultTrouser = singleProduct.trouserOptions[0];
+  //     if (defaultTrouser) {
+  //       setSelectedTrouser(defaultTrouser?.name);
+  //     }
+  //   }
+  // }, [singleProduct]);
 
   const { primary, ...otherImages } =
     singleProduct?.images ||
@@ -201,8 +214,7 @@ export const ProductPage: React.FC = () => {
         custom_size_charges: pricing[3]?.amount ? pricing[3]?.amount : 0,
         cap: cap ? cap : false,
         trouser: selectedTrouser ? true : false,
-        trouser_details: selectedTrouser ? selectedTrouser : null,
-        trouserOptions: selectedTrouser ? selectedTrouser?.name : null,
+        trouserOptions: selectedTrouser ? selectedTrouser : null,
         custom_size: customSize ? customSize : false,
         uniqueId,
         quantity: 1,
@@ -232,9 +244,26 @@ export const ProductPage: React.FC = () => {
     }
   }, [singleProduct]);
 
+  useEffect(() => {
+    if (
+      singleProduct?.trouserOptions &&
+      singleProduct.trouserOptions.length > 0
+    ) {
+      const defaultFabric = singleProduct.trouserOptions[0] as FabricType;
+
+      if (defaultFabric) {
+        setSelectedTrouser(defaultFabric?.name);
+      }
+    }
+  }, [singleProduct]);
+
   const handleFabricClick = (fabric: FabricType) => {
     setSelectedFabric(fabric?.name);
     setselectedFabricPrice(fabric?.price);
+  };
+
+  const handleTrouserClick = (trouser: any) => {
+    setSelectedTrouser(trouser?.name);
   };
 
   const handleStarClick = (starValue: number) => {
@@ -440,6 +469,33 @@ export const ProductPage: React.FC = () => {
                   </div>
                 </div>
 
+                {/* TROUSER TYPE */}
+                <div>
+                  <div className="header flex justify-between items-center">
+                    <h3 className="text-sm font-semibold text-gray-700">
+                      Choose Trouser Option
+                    </h3>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {singleProduct?.trouserOptions?.map((trouser: any) => (
+                      <button
+                        key={trouser?._id}
+                        type="button"
+                        className={clsx(
+                          "px-4 h-9 border-none capitalize outline-none text-sm shadow-sm rounded-md flex items-center justify-center shrink-0",
+                          selectedTrouser === trouser?.name
+                            ? "bg-primary text-gray-50"
+                            : "bg-gray-200 text-black"
+                        )}
+                        onClick={() => handleTrouserClick(trouser)}
+                      >
+                        {trouser?.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 {/* SIZES */}
                 <div className="mt-2">
                   <div className="header flex justify-between items-center flex-wrap gap-2">
@@ -486,11 +542,11 @@ export const ProductPage: React.FC = () => {
 
                 <NameEngravingForm setNameEngraving={setNameEngraving} />
                 <CapForm setCap={setCap} />
-                <TrouserDetailsForm
+                {/* <TrouserDetailsForm
                   trouserOptions={singleProduct?.trouserOptions}
                   selectedTrouser={selectedTrouser}
                   setSelectedTrouser={setSelectedTrouser}
-                />
+                /> */}
 
                 {/* ADD TO CART */}
                 <div className="flex gap-2 sm:gap-4 flex-col sm:flex-row">

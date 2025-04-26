@@ -124,13 +124,13 @@ const CartDetails: React.FC = () => {
                                 </p>
                               </div>
 
-                              {product?.trouser && (
+                              {product?.trouserOptions && (
                                 <div>
                                   <p className="text-sm text-gray-500">
                                     Trouser
                                   </p>
                                   <p className="font-medium text-[14px] sm:text-[15px] capitalize">
-                                    {product?.trouser_details?.name}
+                                    {product?.trouserOptions}
                                   </p>
                                 </div>
                               )}
