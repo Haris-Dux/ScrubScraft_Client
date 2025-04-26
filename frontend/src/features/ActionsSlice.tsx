@@ -30,6 +30,7 @@ interface CartItem extends Product {
   uniqueId: string;
   name_engraving_charges: any;
   cap: any;
+  trouserOptions: any;
   cap_charges: any;
   custom_size: any;
   custom_size_charges: any;
