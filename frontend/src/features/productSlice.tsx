@@ -70,7 +70,7 @@ export const getProductSizeChart = createAsyncThunk(
   async () => {
     try {
       const response = await axios.post(
-        "https://admin.scrubscraft.shop/picturesrRouter/getAllSizePictures"
+        "https://api.admin.scrubscraft.shop/picturesrRouter/getAllSizePictures"
       );
       return response.data;
     } catch (error: any) {
